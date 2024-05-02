@@ -11,14 +11,13 @@ ENV PYTHONFAULTHANDLER=1 \
 
 RUN apt update && pip install --upgrade pip
 
-WORKDIR /app
+WORKDIR /home/app
 
-# Copy the current directory contents into the container at /app
-COPY . /app/
+ADD . /home/app
 
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-EXPOSE 8000
+EXPOSE 80
 
-CMD ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
+CMD ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:80"]
